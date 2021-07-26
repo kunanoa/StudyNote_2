@@ -1,8 +1,14 @@
-<h1>Homes#index</h1>
-<p>Find me in app/views/homes/index.html.erb</p>
-
-<a class="btn btn-primary" href="#" role="button">Link</a>
-<button class="btn btn-primary" type="submit">Button</button>
-<input class="btn btn-primary" type="button" value="Input">
-<input class="btn btn-primary" type="submit" value="Submit">
-<input class="btn btn-primary" type="reset" value="Reset">
+<div class="top-hero-wrapper text-center">
+  <div class="container top-hero-container">
+    <h1 class="text-white">Make you Happy</h1>
+    <h2 class="text-white">Pictgram is a service that you can post photos.</h2>
+    <div class="row">
+      <div class="col-md-offset-3 col-md-3">
+        <%= link_to 'Sign up', new_user_path, class: 'btn btn-block btn-white' %>
+      </div>
+      <div class="col-md-3">
+        <%= link_to 'Log in', '#',class: 'btn btn-block btn-white' %>
+      </div>
+    </div>
+  </div>
+</div>
