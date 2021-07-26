@@ -1,0 +1,145 @@
+@charset "utf-8";
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html,body{
+    height: 100%;
+}
+
+.navbar-bk {
+  height: 60px;
+  width: 100%;
+  background-color: white;
+  position: fixed;
+  z-index: 1;
+}
+
+.navbar-transparent {
+  // height: 60px;
+  margin-bottom: 0px;
+  background-color: rgba(228, 175, 145, 0.842);
+  a {
+    color: #fff !important;
+  }
+
+  .navbar-brand {
+    padding: 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 40px;
+  }
+
+  .userList{
+    padding-top: 18px;
+    height: 60px;
+    font-size: 20px;
+    color: rgb(87, 82, 82);
+    text-decoration: none;
+  }
+}
+
+.footer {
+  height: 120px;
+  margin-top: auto;
+  background-color: #2f3a44;
+  color: #e8e8e8;
+  padding-top: 20px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-left {
+  float: left;
+}
+
+.footer-right {
+  float: right;
+  padding-top: 50px;
+}
+
+.footer-left p {
+  margin-bottom: 8px;
+}
+
+.clear {
+  clear: both;
+}
+
+.container {
+  max-width: 1320px;
+  padding: 0 30px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.top-hero-wrapper {
+  min-height: 100vh;
+  position: relative;
+  padding-bottom: 180px;
+  box-sizing: border-box;  /*←余白を含めてmin-height:100vhに*/
+
+  //   background-image: image-url('bg-top.png');
+  //   background-position: center;
+  //   background-repeat: no-repeat;
+  //   background-attachment: fixed;
+  //   background-size: cover;
+  //   background-color: #464646;
+}
+
+// .text-white {
+//   color: rgb(3, 3, 3);
+// }
+
+// .btn-white {
+//   color: rgb(3, 3, 3);
+//   border: 1px solid #fff;
+//   padding-top: 15px;
+//   padding-bottom: 15px;
+//   font-size: 20px;
+//   background-color: rgba(3,3,3,0.0);
+
+//   &:hover {
+//     color: #fff;
+//   }
+// }
+
+.top-hero-container {
+  padding-top: 100px;
+  h1 {
+    font-size: 46px;
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    margin-bottom: 20px;
+  }
+}
+
+.alert {
+    margin-bottom: 0px;
+    position: fixed;
+    width: 100%;
+    z-index: 10000;
+}
+  
+.home_image {
+  width: 95%;
+}
+
+.home_image_text {
+  font-size: 30px;
+  padding-right: 20px;
+  margin-bottom: 45px;
+}
+
+.text_size_20 {
+  font-size: 20px;
+}
+
+.btn-customer-1 {
+  margin-top: 15px;
+}
