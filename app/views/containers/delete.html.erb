@@ -1,0 +1,14 @@
+<h2>対象コンテナ情報</h2>
+<div class="row">
+  <div class="col-md-12">
+    <%= "コンテナID： #{@container.id}" %><br>
+    <%= "コンテナ名： #{@container.name}" %><br>
+    <%= "現在のステータス： 削除済み" %><br>
+    <%= "利用していたポート： #{@container.port}" %><br>
+    <%= "コンテナイメージ： #{@container.repository}" %><br>
+  </div>
+  <div class="col-md-12">
+    <br>
+    <%= link_to "コンテナ管理画面へ", containers_index_path, class: 'btn btn-default' %>
+  </div>
+</div>

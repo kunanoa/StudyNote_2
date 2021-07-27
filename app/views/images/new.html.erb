@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-md-offset-4 col-md-4">
+    <h2 class="text-center">コンテナ作成</h2>
+    <%= form_for @image, url: images_create_path do |f| %>
+      <div class="form-group">
+        <%= f.hidden_field :repository, class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= f.hidden_field :tag, class: 'form-control' %>
+      </div>
+      <div class="form-group form-inline">
+        <%= f.label :ホストマシン側の受付ポート（任意、1～65535） %>
+        <%= f.text_field :port_host, class: 'form-control ' %>
+      </div>
+      <div class="form-group form-inline">
+        <%= f.label :コンテナ側の受付ポート（任意、1～65535） %>
+        <%= f.text_field :port_container, class: 'form-control ' %>
+      </div>
+
+      <%= f.submit "作成", class: 'btn-block btn-white col-md-6' %>
+    <% end %>
+    
+    <%= link_to 'キャンセル', images_index_path, class: 'text-white' %>
+  </div>
+
+  <div class="col-md-offset-3 col-md-9">
+  <br>
+    ※1 ホストマシン側とコンテナ側の受付ポートはどちらかのみの設定はできません。<br>
+  </div>
+</div>

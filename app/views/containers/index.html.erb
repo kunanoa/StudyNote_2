@@ -1,0 +1,54 @@
+<h1>コンテナ管理</h1>
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>No</th>    
+          <th>コンテナID</th>
+          <th>コンテナ名</th>
+          <th>ステータス</th>
+          <th>ポート</th>
+          <th>イメージ名</th>
+          <th>起動/停止</th>
+          <th>イメージ作成</th>
+          <th>削除</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @all_container.each_with_index do |container, index| %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><%= container.id %></td>
+            <td><%= container.name %></td>
+            <td><%= container.status %></td>
+            <td><%= container.port %></td>
+            <td><%= "#{container.repository}:#{container.tag}" %></td>
+            <% if container.status == "稼働中" %>
+              <td><%= link_to "停止", containers_run_path(id: container.id, status: container.status), 
+                data: { confirm: "#{container.id}（#{container.name}）\nコンテナを停止しますか？" } %></td>
+            <% else %>
+              <td><%= link_to "起動", containers_run_path(id: container.id, status: container.status), 
+                data: { confirm: "#{container.id}（#{container.name}）\nコンテナを起動しますか？" } %></td>  
+            <% end %>
+              <td><%= link_to "作成", containers_new_path(id: container.id, status: container.status), 
+                data: { confirm: "#{container.id}（#{container.name}）\nイメージを作成しますか？" } %></td>  
+            <td><%= link_to "削除", containers_delete_path(id: container.id, status: container.status), 
+                data: { confirm: "#{container.id}（#{container.name}）\nコンテナを削除しますか？" } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-md-12">
+    <p>
+      ※1 ホストマシン側の受付ポートが同じである場合、コンテナは起動に失敗します。<br>
+    </p>
+  </div>
+
+  <div class="col-md-12">
+    <br><br>
+    <%= link_to "更新", containers_index_path, class: 'btn btn-primary' %>
+  </div> 
+</div>

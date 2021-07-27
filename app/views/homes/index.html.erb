@@ -1,14 +1,50 @@
-<div class="top-hero-wrapper text-center">
-  <div class="container top-hero-container">
-    <h1 class="text-white">Make you Happy</h1>
-    <h2 class="text-white">Pictgram is a service that you can post photos.</h2>
-    <div class="row">
-      <div class="col-md-offset-3 col-md-3">
-        <%= link_to 'Sign up', new_user_path, class: 'btn btn-block btn-white' %>
+<h1>ホーム</h1>
+<div class="row">
+  <div class="col-md-6">
+    <%= link_to containers_index_path do %>
+      <%= image_tag "cat-4626681_1920.jpg", class: "home_image" %>
+      <div class="text-center home_image_text">
+        コンテナ画面へ移動
       </div>
-      <div class="col-md-3">
-        <%= link_to 'Log in', '#',class: 'btn btn-block btn-white' %>
+    <% end %>
+  </div>
+  <div class="col-md-6">
+    <%= link_to images_index_path do %>
+      <%= image_tag "cat-4626682_1920.jpg", class: "home_image" %>
+      <div class="text-center home_image_text">
+        イメージ画面へ移動
       </div>
-    </div>
+    <% end %>
+  </div>
+
+  <div class="col-md-6">
+    <br>
+    <br>
+    <h3>◆進捗状況（7/17 ~ 7/31）</h3>
+    <p class="text_size_20">
+    ＜環境＞<br>
+    ・ELB、サーバ削除（旧環境削除）<br>
+    ・Rails6+NginX+Puma対応（新環境構築）<br>
+    <br>
+    ＜アプリ＞<br>
+    ・devise利用停止、ログイン機能実装<br>
+    ・ナビゲーションバーのレスポンシブ対応<br>
+    ・フッダ追加<br>
+    ・イメージの情報取得＆表示機能追加<br>
+    ・イメージの削除機能追加<br>
+    ・コンテナからイメージの作成機能追加<br>
+    ・イメージからコンテナの作成機能追加<br>
+    </p>
+  </div>
+
+  <div class="col-md-6">
+    <br>
+    <br>
+    <h3>◆要対応</h3>
+    <p class="text_size_20">
+    ・ユーザページ作成<br>
+    ・form_for、form_tagについての調査<br>
+    ・その他<br>
+    </p>
   </div>
 </div>

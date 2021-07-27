@@ -1,0 +1,15 @@
+<h2>対象イメージ情報</h2>
+<div class="row">
+  <div class="col-md-12">
+    <%= "イメージID： #{@image.id}" %><br>
+    <%= "レジストリ名： #{@image.repository}" %><br>
+    <%= "タグ名： #{@image.tag}" %><br>
+    <%= "作成されてからの時間： #{@image.created}" %><br>
+    <%= "サイズ： #{@image.image_size}" %><br>    
+    <%= "現在のステータス： 削除済み" %><br>
+  </div>
+  <div class="col-md-12">
+    <br>
+    <%= link_to "イメージ管理画面へ", images_index_path, class: 'btn btn-default' %>
+  </div>
+</div>

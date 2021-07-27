@@ -81,31 +81,7 @@ html,body{
   position: relative;
   padding-bottom: 180px;
   box-sizing: border-box;  /*←余白を含めてmin-height:100vhに*/
-
-  //   background-image: image-url('bg-top.png');
-  //   background-position: center;
-  //   background-repeat: no-repeat;
-  //   background-attachment: fixed;
-  //   background-size: cover;
-  //   background-color: #464646;
 }
-
-// .text-white {
-//   color: rgb(3, 3, 3);
-// }
-
-// .btn-white {
-//   color: rgb(3, 3, 3);
-//   border: 1px solid #fff;
-//   padding-top: 15px;
-//   padding-bottom: 15px;
-//   font-size: 20px;
-//   background-color: rgba(3,3,3,0.0);
-
-//   &:hover {
-//     color: #fff;
-//   }
-// }
 
 .top-hero-container {
   padding-top: 100px;
@@ -144,29 +120,6 @@ html,body{
   margin-top: 15px;
 }
 
-
-
-
-
 .form-control {
     height: 45px;
-  }
-  
-  .users-new-wrapper {
-    width: 100vw;
-    height: 100vh;
-    background-image: image-url('bg-top.png');
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-    background-color: #464646;
-  
-    .users-new-container {
-      padding-top: 220px;
-  
-      .form-group {
-        margin-bottom: 20px;
-      }
-    }
-  }
+}
