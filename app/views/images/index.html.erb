@@ -10,8 +10,7 @@
           <th>タグ名</th>
           <th>作成されてからの時間</th>
           <th>サイズ</th>
-          <th>コンテナ作成</th>
-          <th>削除</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -23,23 +22,43 @@
             <td><%= image.tag %></td>
             <td><%= image.created %></td>
             <td><%= image.image_size %></td>
-
-            <% if image.repository != "<none>" && image.tag != "<none>" %>
-              <td><%= link_to "作成", images_new_path(id: image.id, repository: image.repository, tag: image.tag,
-                image_size: image.image_size, created: image.created), 
-                data: { confirm: "#{image.id}（#{image.repository}:#{image.tag}）\nコンテナを作成しますか？" } %></td>
-              <td><%= link_to "削除", images_delete_path(id: image.id, repository: image.repository, tag: image.tag,
-                image_size: image.image_size, created: image.created), 
-                data: { confirm: "#{image.id}（#{image.repository}:#{image.tag}）\nイメージを削除しますか？" } %></td>
-            <% else %>
-              <td>-</td>
-              <td>-</td>
-            <% end %>
+            <td>              
+              <li class="dropdown list-unstyled">
+                <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  アクション▼
+                </button>
+                <ul class="dropdown-menu">
+                  <% if image.repository != "<none>" && image.tag != "<none>" %>
+                    <li>
+                      <%= link_to "コンテナ作成", images_new_path(id: image.id, repository: image.repository, tag: image.tag,
+                      image_size: image.image_size, created: image.created), 
+                      data: { confirm: "#{image.id}（#{image.repository}:#{image.tag}）\nコンテナを作成しますか？" } %>
+                    </li>
+                    <li role="separator" class="divider"></li>
+                    <li>
+                      <%= link_to "イメージ削除", images_delete_path(id: image.id, repository: image.repository, tag: image.tag,
+                      image_size: image.image_size, created: image.created), 
+                      data: { confirm: "#{image.id}（#{image.repository}:#{image.tag}）\nイメージを削除しますか？" } %>
+                    </li>
+                  <% else %>
+                    <li class="disabled">
+                      <%= link_to "コンテナ作成", "#" %>
+                    </li>
+                    <li role="separator" class="divider"></li>
+                    <li class="disabled">
+                      <%= link_to "イメージ削除", "#" %>
+                    </li>
+                  <% end %>
+                </ul>
+              </li>
+            </td>
           </tr>
         <% end %>
       </tbody>
     </table>
   </div>
+
+
 
   <div class="col-md-12">
     <p>
