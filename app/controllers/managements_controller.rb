@@ -12,7 +12,7 @@ class ManagementsController < ApplicationController
       @management.add_rule(@management.ip)
       redirect_to images_index_path, success: "ルールの追加に成功しました。"
     else
-      redirect_back(fallback_location: root_path, danger: "#{@management.ip}  処理に失敗しました。")
+      redirect_back(fallback_location: root_path, danger: "処理に失敗しました。")
     end
   end
 
