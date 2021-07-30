@@ -30,23 +30,23 @@
                 <ul class="dropdown-menu">
                   <% if image.repository != "<none>" && image.tag != "<none>" %>
                     <li>
-                      <%= link_to "コンテナ作成", images_new_path(id: image.id, repository: image.repository, tag: image.tag,
+                      <%= link_to "コンテナを作成", images_new_path(id: image.id, repository: image.repository, tag: image.tag,
                       image_size: image.image_size, created: image.created), 
                       data: { confirm: "#{image.id}（#{image.repository}:#{image.tag}）\nコンテナを作成しますか？" } %>
                     </li>
                     <li role="separator" class="divider"></li>
                     <li>
-                      <%= link_to "イメージ削除", images_delete_path(id: image.id, repository: image.repository, tag: image.tag,
+                      <%= link_to "イメージを削除", images_delete_path(id: image.id, repository: image.repository, tag: image.tag,
                       image_size: image.image_size, created: image.created), 
                       data: { confirm: "#{image.id}（#{image.repository}:#{image.tag}）\nイメージを削除しますか？" } %>
                     </li>
                   <% else %>
                     <li class="disabled">
-                      <%= link_to "コンテナ作成", "#" %>
+                      <%= link_to "コンテナを作成", "#" %>
                     </li>
                     <li role="separator" class="divider"></li>
                     <li class="disabled">
-                      <%= link_to "イメージ削除", "#" %>
+                      <%= link_to "イメージを削除", "#" %>
                     </li>
                   <% end %>
                 </ul>

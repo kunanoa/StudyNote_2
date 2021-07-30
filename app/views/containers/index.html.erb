@@ -10,9 +10,7 @@
           <th>ステータス</th>
           <th>ポート</th>
           <th>イメージ名</th>
-          <th>起動/停止</th>
-          <th>イメージ作成</th>
-          <th>削除</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -24,17 +22,42 @@
             <td><%= container.status %></td>
             <td><%= container.port %></td>
             <td><%= "#{container.repository}:#{container.tag}" %></td>
-            <% if container.status == "稼働中" %>
-              <td><%= link_to "停止", containers_run_path(id: container.id, status: container.status), 
-                data: { confirm: "#{container.id}（#{container.name}）\nコンテナを停止しますか？" } %></td>
-            <% else %>
-              <td><%= link_to "起動", containers_run_path(id: container.id, status: container.status), 
-                data: { confirm: "#{container.id}（#{container.name}）\nコンテナを起動しますか？" } %></td>  
-            <% end %>
-              <td><%= link_to "作成", containers_new_path(id: container.id, status: container.status), 
-                data: { confirm: "#{container.id}（#{container.name}）\nイメージを作成しますか？" } %></td>  
-            <td><%= link_to "削除", containers_delete_path(id: container.id, status: container.status), 
-                data: { confirm: "#{container.id}（#{container.name}）\nコンテナを削除しますか？" } %></td>
+
+            <td>              
+              <li class="dropdown list-unstyled">
+                <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  アクション▼
+                </button>
+                <ul class="dropdown-menu">
+                  <% if container.status == "稼働中" %>
+                    <li class="disabled">
+                      <%= link_to "コンテナを起動", "#" %>
+                    </li>
+                    <li>
+                      <%= link_to "コンテナを停止", containers_run_path(id: container.id, status: container.status), 
+                      data: { confirm: "#{container.id}（#{container.name}）\nコンテナを停止しますか？" } %>
+                    </li>
+                  <% else %>
+                    <li>
+                      <%= link_to "コンテナを起動", containers_run_path(id: container.id, status: container.status), 
+                      data: { confirm: "#{container.id}（#{container.name}）\nコンテナを起動しますか？" } %>
+                    </li>
+                      <li class="disabled">
+                      <%= link_to "コンテナを停止", "#" %>
+                    </li>
+                  <% end %>
+                  <li>
+                    <%= link_to "イメージを作成", containers_new_path(id: container.id, status: container.status), 
+                    data: { confirm: "#{container.id}（#{container.name}）\nイメージを作成しますか？" } %>    
+                  </li>
+                  <li role="separator" class="divider"></li>
+                  <li>
+                    <%= link_to "コンテナを削除", containers_delete_path(id: container.id, status: container.status), 
+                    data: { confirm: "#{container.id}（#{container.name}）\nコンテナを削除しますか？" } %>
+                  </li>
+                </ul>
+              </li>
+            </td>
           </tr>
         <% end %>
       </tbody>
