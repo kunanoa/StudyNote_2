@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
 
-  before_action :require_logout
+  before_action :require_login
 
+  # 管理者のみが作成可能にするため、ログイン後の操作とする。
   def new
     @user = User.new
   end

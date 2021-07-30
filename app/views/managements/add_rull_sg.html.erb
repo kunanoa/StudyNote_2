@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-md-offset-4 col-md-4">
+    <h2 class="text-center">ssh接続許可設定</h2>
+    <%= form_for @management, url: managements_add_rull_sg_do_path do |f| %>
+      <div class="form-group">
+        <%= f.label :IPアドレス %>
+        <%= f.text_field :ip, class: 'form-control ' %>
+      </div>
+
+      <%= f.submit "送信", class: 'btn-block btn-white col-md-6' %>
+    <% end %>
+    
+    <%= link_to 'キャンセル', images_index_path %>
+  </div>
+
+  <div class="col-md-offset-3 col-md-9">
+  <br>
+    ※1 必ず、xxx.xxx.xxx.xxx 形式で入力してください。（例：13.242.11.1）<br>
+  </div>
+</div>
