@@ -44,10 +44,16 @@
                     <%= link_to "ホーム", root_path, class:"userList" %>
                   </li>
                   <li class="text-center">
+                    <%= link_to "イベント", root_path, class:"userList" %>
+                  </li>
+                  <li class="text-center">
                     <%= link_to "コンテナ", containers_index_path, class:"userList" %>
                   </li>
                   <li class="text-center">
-                  <%= link_to "イメージ", images_index_path, class:"userList" %>
+                    <%= link_to "イメージ", images_index_path, class:"userList" %>
+                  </li>
+                  <li class="text-center">
+                    <%= link_to "管理", root_path, class:"userList" %>
                   </li>
                   <li class="text-center">
                     <%= link_to "ログアウト", logout_path, method: :delete, class:"userList" %>
@@ -66,8 +72,10 @@
         </nav>
       </div>
 
-      <div class="container top-hero-container">
+      <div class="top-hero-container">
+      <div class="container">
         <%= yield %>
+      </div>
       </div>
 
       <div class="footer">

@@ -8,6 +8,7 @@ class ImagesController < ApplicationController
     @all_image = images.all_image_info
   end
 
+  # コンテナ作成画面に移動する。
   def new
     @image = Image.new(image_params)
     if @image.valid?
@@ -16,9 +17,10 @@ class ImagesController < ApplicationController
     end
   end
 
+  # コンテナを作成する。
   def create
     @image = Image.new(create_container_params)
-    if @image.valid? && @image.create_container(@image.repository, @image.tag, @image.port_host, @image.port_container)
+    if @image.valid? && @image.create_container(@image.repository, @image.tag, @image.port_host, @image.port_container, @image.container_name)
       redirect_to containers_index_path, success: "イメージを作成しました。"
     else
       redirect_back(fallback_location: root_path, danger: "処理に失敗しました。")
@@ -35,6 +37,7 @@ class ImagesController < ApplicationController
     end
   end
 
+  # 不要（レポジトリ、タグに<none>がついているイメージ）を削除する。
   def delete_2
     @image = Image.new()
     @image.delete_unused_image
@@ -47,6 +50,6 @@ class ImagesController < ApplicationController
   end
 
   def create_container_params
-    params.require(:image).permit(:repository, :tag, :port_host , :port_container)
+    params.require(:image).permit(:repository, :tag, :port_host , :port_container, :container_name)
   end
 end

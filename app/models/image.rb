@@ -1,5 +1,5 @@
 class Image < ApplicationRecord
-  attr_accessor :id, :repository, :tag, :created, :image_size, :port_host, :port_container
+  attr_accessor :id, :repository, :tag, :created, :image_size, :port_host, :port_container, :container_name
 
   # バリデーション処理
   validates :id, length: { maximum: 12 }, format: {with: /\A([a-z0-9]+)\z/}, allow_blank: true
@@ -9,6 +9,8 @@ class Image < ApplicationRecord
   validates :created, length: { maximum: 22 }, format: {with: /\A([A-Za-z0-9 ]+)\z/}, allow_blank: true
   validates :port_host, length: { in: 1..65535 }, allow_blank: true
   validates :port_container, length: { in: 1..65535 }, allow_blank: true
+  validates :container_name, length: { maximum: 30 }, format: {with: /\A([a-zA-Z0-9_.-]+)\z/}, allow_blank: true
+
 
   def all_image_info()
     count = `docker images -q`.chomp.split("\n").count
@@ -33,20 +35,28 @@ class Image < ApplicationRecord
     @image_size = image_size
     @port_host = ""
     @port_container = ""
-    return @id, @repository, @tag, @created, @image_size ,@port_host ,@port_container
+    @container_name = ""
+    return @id, @repository, @tag, @created, @image_size ,@port_host ,@port_container, @container_name
   end
 
-  def create_container(repository, tag, port_host, port_container)
-    if port_host != "" && port_container != ""
-      `docker run -d -it -p #{port_host}:#{port_container} #{repository}:#{tag}`
-      result = true
-    elsif port_host != "" || port_container != ""
-      result = false
-    else
-      `docker run -d -it #{repository}:#{tag}`
-      result = true
+  def create_container(repository, tag, port_host, port_container, container_name)
+    flag = true
+    if container_name != ""
+      container_name = "--name #{container_name}" 
     end
-    result
+    
+    if port_host != "" && port_container != ""
+      ports = "-p #{port_host}:#{port_container}"
+    elsif port_host == "" && port_container == ""
+      ports = ""
+    else
+      flag = false
+    end
+
+    if flag != false
+      `docker run -d #{container_name} -it #{ports} #{repository}:#{tag}`
+    end
+    flag
   end
 
   # 対象イメージを削除する。

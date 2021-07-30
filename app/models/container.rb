@@ -5,6 +5,7 @@ class Container < ApplicationRecord
   # バリデーション処理
   validates :id, length: { is: 12 }
   validates :status, format: { with: /\A(稼働中|停止)\z/ }, allow_blank: true
+  validates :name, length: { maximum: 30 }, format: {with: /\A([a-zA-Z0-9_.-]+)\z/}, allow_blank: true
   validates :repository, length: { maximum: 15 }, format: {with: /\A([A-Za-z0-9]+[A-Za-z0-9_-]+[A-Za-z0-9])\z/}, allow_blank: true
   validates :tag, length: { maximum: 12 }, format: {with: /\A([A-Za-z0-9]+[A-Za-z0-9_-]+[A-Za-z0-9])\z/}, allow_blank: true
   
