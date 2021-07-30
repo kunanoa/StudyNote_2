@@ -45,17 +45,16 @@ class Container < ApplicationRecord
   end
 
   def create_image(id, repository, tag)
+    flag = true
     if repository == ""
-      result = false
+      flag = false
     elsif tag == ""
       tag = "latest"
       `docker commit #{id} #{repository}:#{tag}`
-      result = true
     else
       `docker commit #{id} #{repository}:#{tag}`
-      result = true
     end
-    result
+    flag
   end
 
   # 対象コンテナのステータス情報から、コンテナが起動中か停止中かを判別し、起動/停止させる。

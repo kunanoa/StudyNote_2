@@ -3,8 +3,8 @@ class Image < ApplicationRecord
 
   # バリデーション処理
   validates :id, length: { maximum: 12 }, format: {with: /\A([a-z0-9]+)\z/}, allow_blank: true
-  validates :repository, length: { maximum: 15 }, format: {with: /\A([A-Za-z0-9]+[A-Za-z0-9_-]+[A-Za-z0-9]|"<none>")\z/}
-  validates :tag, length: { maximum: 12 }, format: {with: /\A([A-Za-z0-9]+[A-Za-z0-9_-]+[A-Za-z0-9]|"<none>")\z/}
+  validates :repository, length: { maximum: 15 }, format: {with: /\A([A-Za-z0-9]+[A-Za-z0-9_-]+[A-Za-z0-9]|\<none\>)\z/}
+  validates :tag, length: { maximum: 12 }, format: {with: /\A([A-Za-z0-9]+[A-Za-z0-9_-]+[A-Za-z0-9]|\<none\>)\z/}
   validates :image_size, length: { maximum: 10 }, format: {with: /\A([A-Za-z0-9.]+)\z/}, allow_blank: true
   validates :created, length: { maximum: 22 }, format: {with: /\A([A-Za-z0-9 ]+)\z/}, allow_blank: true
   validates :port_host, length: { in: 1..65535 }, allow_blank: true
@@ -55,6 +55,18 @@ class Image < ApplicationRecord
 
     if flag != false
       `docker run -d #{container_name} -it #{ports} #{repository}:#{tag}`
+    end
+    flag
+  end
+
+  def change_repository_tag(id, repository, tag)
+    flag = true
+    if repository == "" || tag == ""
+      flag = false
+    elsif repository == "<none>" || tag == "<none>"
+      flag = false
+    else
+      `docker tag #{id} #{repository}:#{tag}`
     end
     flag
   end

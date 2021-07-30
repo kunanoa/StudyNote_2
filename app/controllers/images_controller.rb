@@ -26,6 +26,25 @@ class ImagesController < ApplicationController
     end
   end
 
+    # イメージを複製画面へ移動する。
+    def change_repository_tag
+      @image = Image.new(image_params)
+      if @image.valid?
+      else
+        redirect_back(fallback_location: root_path, danger: "処理に失敗しました。")
+      end
+    end
+
+    # レポジトリ/タグ名を変更してイメージを複製する。
+    def change_repository_tag_do
+      @image = Image.new(change_repository_tag_params)
+      if @image.valid? && @image.change_repository_tag(@image.id, @image.repository, @image.tag)
+        redirect_to images_index_path, success: "イメージの複製に作成しました。"
+      else
+        redirect_back(fallback_location: root_path, danger: "イメージの複製に失敗しました。")
+      end
+    end
+
   # イメージを削除する。
   def delete
     @image = Image.new(image_params)
@@ -36,7 +55,7 @@ class ImagesController < ApplicationController
     end
   end
 
-  # 不要（レポジトリ、タグに<none>がついているイメージ）を削除する。
+  # 不要（レポジトリ、タグに<none>がついている）イメージを削除する。
   def delete_2
     @image = Image.new()
     @image.delete_unused_image
@@ -46,6 +65,10 @@ class ImagesController < ApplicationController
   private
   def image_params
     params.permit(:id, :repository, :tag, :image_size, :created)
+  end
+
+  def change_repository_tag_params
+    params.require(:image).permit(:id, :repository, :tag)
   end
 
   def create_container_params

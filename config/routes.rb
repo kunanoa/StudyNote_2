@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   get 'images/index'
   get 'images/new'
   post 'images/create'
+  get 'images/change_repository_tag'
+  post 'images/change_repository_tag_do'
   get 'images/delete'
   get 'images/delete_2'
 
