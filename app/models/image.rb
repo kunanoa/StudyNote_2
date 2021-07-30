@@ -12,9 +12,9 @@ class Image < ApplicationRecord
   validates :container_name, length: { maximum: 30 }, format: {with: /\A([a-zA-Z0-9_.-]+)\z/}, allow_blank: true
 
 
-  def all_image_info()
+  def self.all
     count = `docker images -q`.chomp.split("\n").count
-    all_image = []
+    images = []
     repository_tag = `docker images --format "{{.ID}} {{.Repository}} {{.Tag}} {{.Size}} {{.CreatedSince}}"`.chomp.split("\n")
     repository_tag.each do |repository_tag|
       repository_tag = repository_tag.split(" ")
@@ -22,9 +22,9 @@ class Image < ApplicationRecord
       created = repository_tag[4..(repository_tag.size)].join(' ')
       image = Image.new()
       image.image_info(id, repository, tag, image_size, created)
-      all_image << image
+      images << image
     end
-    all_image
+    images
   end
 
   def image_info(id, repository, tag, image_size, created)

@@ -9,16 +9,16 @@ class Container < ApplicationRecord
   validates :repository, length: { maximum: 15 }, format: {with: /\A([A-Za-z0-9]+[A-Za-z0-9_-]+[A-Za-z0-9])\z/}, allow_blank: true
   validates :tag, length: { maximum: 12 }, format: {with: /\A([A-Za-z0-9]+[A-Za-z0-9_-]+[A-Za-z0-9])\z/}, allow_blank: true
   
-  def all_container_info()
+  def self.all
     ids = `docker ps -a --format "{{.ID}}"`.chomp.split("\n")
 
-    all_container = []
+    containers = []
     ids.each do |id|
       container = Container.new()
       container.container_info(id)
-      all_container << container
+      containers << container
     end
-    all_container
+    containers
   end
 
   def container_info(id)
@@ -82,5 +82,4 @@ class Container < ApplicationRecord
     `sleep 1`
     `docker ps -aqf "id=#{id}"`.chomp.size == 0
   end
-  
 end

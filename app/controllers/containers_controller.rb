@@ -4,8 +4,7 @@ class ContainersController < ApplicationController
   
   # サーバから全てのコンテナ情報を取得する。
   def index
-    containers = Container.new()
-    @all_container = containers.all_container_info
+    @containers = Container.all
   end
 
   # イメージ作成のためのフォームページへ遷移。
