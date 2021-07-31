@@ -9,7 +9,7 @@ class ManagementsController < ApplicationController
     @management = Management.new(ip_params)
     if @management.valid_ip?(@management.ip)
       @management.add_rule(@management.ip)
-      redirect_to images_index_path, success: "ルールの追加に成功しました。"
+      redirect_to managements_add_rull_sg_path, success: "ルールの追加に成功しました。"
     else
       redirect_back(fallback_location: root_path, danger: "処理に失敗しました。")
     end
