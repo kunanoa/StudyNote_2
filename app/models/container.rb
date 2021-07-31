@@ -1,11 +1,12 @@
 class Container < ApplicationRecord
     
-  attr_accessor :id, :name, :status, :port, :repository, :tag
+  attr_accessor :id, :name, :new_name, :status, :port, :repository, :tag
 
   # バリデーション処理
   validates :id, length: { is: 12 }
   validates :status, format: { with: /\A(稼働中|停止)\z/ }, allow_blank: true
   validates :name, length: { maximum: 30 }, format: {with: /\A([a-zA-Z0-9_.-]+)\z/}, allow_blank: true
+  validates :new_name, length: { maximum: 30 }, format: {with: /\A([a-zA-Z0-9_.-]+)\z/}, allow_blank: true
   validates :repository, length: { maximum: 15 }, format: {with: /\A([A-Za-z0-9]+[A-Za-z0-9_-]+[A-Za-z0-9])\z/}, allow_blank: true
   validates :tag, length: { maximum: 12 }, format: {with: /\A([A-Za-z0-9]+[A-Za-z0-9_-]+[A-Za-z0-9])\z/}, allow_blank: true
   
@@ -70,6 +71,16 @@ class Container < ApplicationRecord
     `sleep 1`
     container_info(id)
     @status != before_status
+  end
+
+  def change_name(id, name, new_name)
+    flag = true
+    if name == "" || new_name == ""
+      flag = false
+    else
+      `docker rename #{name} #{new_name}`
+    end
+    flag
   end
 
   # 対象コンテナIDと一致するコンテナを削除する。

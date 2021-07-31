@@ -36,6 +36,25 @@ class ContainersController < ApplicationController
     end
   end
 
+  # コンテナ名の変更画面へ移動する。
+  def change_container_name
+    @container = Container.new(change_container_name_params)
+    if @container.valid?
+    else
+      redirect_back(fallback_location: root_path, danger: "処理に失敗しました。")
+    end
+  end
+
+  # コンテナ名を変更する。
+  def change_container_name_do
+    @container = Container.new(change_container_name_do_params)
+    if @container.valid? && @container.change_name(@container.id, @container.name, @container.new_name)
+      redirect_to containers_index_path, success: "コンテナ名の変更に成功しました。"
+    else
+      redirect_back(fallback_location: root_path, danger: "コンテナ名の変更に失敗しました。")
+    end
+  end
+
   # コンテナを削除する。
   # status_paramsはバリデーションを通すために渡している。
   def delete
@@ -58,5 +77,13 @@ class ContainersController < ApplicationController
 
   def create_image_params
     params.require(:container).permit(:id, :repository, :tag)
+  end
+
+  def change_container_name_params
+    params.permit(:id, :name)
+  end
+
+  def change_container_name_do_params
+    params.require(:container).permit(:id, :name, :new_name)
   end
 end

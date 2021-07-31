@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   post 'containers/create'
   get 'containers/run'
   get 'containers/delete'
+  get 'containers/change_container_name'
+  post 'containers/change_container_name_do'
   get 'images/index'
   get 'images/new'
   post 'images/create'

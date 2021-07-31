@@ -47,6 +47,10 @@
                     </li>
                   <% end %>
                   <li>
+                    <%= link_to "コンテナ名を変更", containers_change_container_name_path(id: container.id, name: container.name), 
+                    data: { confirm: "#{container.id}（#{container.name}）\nコンテナ名を変更しますか？" } %>    
+                  </li>
+                  <li>
                     <%= link_to "イメージを作成", containers_new_path(id: container.id, status: container.status), 
                     data: { confirm: "#{container.id}（#{container.name}）\nイメージを作成しますか？" } %>    
                   </li>

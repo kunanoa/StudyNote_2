@@ -59,7 +59,7 @@ class Image < ApplicationRecord
     flag
   end
 
-  def change_repository_tag(id, repository, tag)
+  def change_repository_tag_name(id, repository, tag)
     flag = true
     if repository == "" || tag == ""
       flag = false
