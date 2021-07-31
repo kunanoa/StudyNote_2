@@ -1,83 +1,88 @@
-<h1>イメージ管理</h1>
-<div class="row">
-  <div class="col-md-12">
-    <table class="table table-striped table-hover">
-      <thead>
-        <tr>
-          <th>No</th>    
-          <th>イメージID</th>
-          <th>レジストリ名</th>
-          <th>タグ名</th>
-          <th>作成されてからの時間</th>
-          <th>サイズ</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @images.each_with_index do |image, index| %>
-          <tr>
-            <td><%= index + 1 %></td>
-            <td><%= image.id %></td>
-            <td><%= image.repository %></td>
-            <td><%= image.tag %></td>
-            <td><%= image.created %></td>
-            <td><%= image.image_size %></td>
-            <td>              
-              <li class="dropdown list-unstyled">
-                <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  アクション▼
-                </button>
-                <ul class="dropdown-menu">
-                  <% if image.repository != "<none>" && image.tag != "<none>" %>
-                    <li>
-                      <%= link_to "コンテナを作成して起動", images_new_path(id: image.id, repository: image.repository, tag: image.tag,
-                      image_size: image.image_size, created: image.created), 
-                      data: { confirm: "#{image.id}（#{image.repository}:#{image.tag}）\nコンテナを作成しますか？" } %>
-                    </li>
-                  <% else %>
-                    <li class="disabled">
-                      <%= link_to "コンテナを作成して起動", "#" %>
-                    </li>
-                  <% end %>
-                  <li>
-                    <%= link_to "レジストリ/タグ名を変更して複製", 
-                    images_change_repository_tag_path(id: image.id, repository: image.repository, tag: image.tag),
-                    data: { confirm: "#{image.id}（#{image.repository}:#{image.tag}）\nイメージを複製しますか？" } %>
+<div class="top-hero-container">
+  <div class="container">
+    <h1>イメージ管理</h1>
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>No</th>    
+              <th>イメージID</th>
+              <th>レジストリ名</th>
+              <th>タグ名</th>
+              <th>作成されてからの時間</th>
+              <th>サイズ</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @images.each_with_index do |image, index| %>
+              <tr>
+                <td><%= index + 1 %></td>
+                <td><%= image.id %></td>
+                <td><%= image.repository %></td>
+                <td><%= image.tag %></td>
+                <td><%= image.created %></td>
+                <td><%= image.image_size %></td>
+                <td>              
+                  <li class="dropdown list-unstyled">
+                    <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      アクション▼
+                    </button>
+                    <ul class="dropdown-menu">
+                      <% if image.repository != "<none>" && image.tag != "<none>" %>
+                        <li>
+                          <%= link_to "コンテナを作成して起動", images_new_path(id: image.id, repository: image.repository, tag: image.tag,
+                          image_size: image.image_size, created: image.created), 
+                          data: { confirm: "#{image.id}（#{image.repository}:#{image.tag}）\nコンテナを作成しますか？" } %>
+                        </li>
+                      <% else %>
+                        <li class="disabled">
+                          <%= link_to "コンテナを作成して起動", "#" %>
+                        </li>
+                      <% end %>
+                      <li>
+                        <%= link_to "レジストリ/タグ名を変更して複製", 
+                        images_change_repository_tag_path(id: image.id, repository: image.repository, tag: image.tag),
+                        data: { confirm: "#{image.id}（#{image.repository}:#{image.tag}）\nイメージを複製しますか？" } %>
+                      </li>
+                      <li role="separator" class="divider"></li>
+                      <% if image.repository != "<none>" && image.tag != "<none>" %>
+                        <li>
+                          <%= link_to "イメージを削除", images_delete_path(id: image.id, repository: image.repository, tag: image.tag,
+                          image_size: image.image_size, created: image.created), 
+                          data: { confirm: "#{image.id}（#{image.repository}:#{image.tag}）\nイメージを削除しますか？" } %>
+                        </li>
+                      <% else %>
+                        <li class="disabled">
+                          <%= link_to "イメージを削除", "#" %>
+                        </li>
+                      <% end %>
+                    </ul>
                   </li>
-                  <li role="separator" class="divider"></li>
-                  <% if image.repository != "<none>" && image.tag != "<none>" %>
-                    <li>
-                      <%= link_to "イメージを削除", images_delete_path(id: image.id, repository: image.repository, tag: image.tag,
-                      image_size: image.image_size, created: image.created), 
-                      data: { confirm: "#{image.id}（#{image.repository}:#{image.tag}）\nイメージを削除しますか？" } %>
-                    </li>
-                  <% else %>
-                    <li class="disabled">
-                      <%= link_to "イメージを削除", "#" %>
-                    </li>
-                  <% end %>
-                </ul>
-              </li>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
 
 
 
-  <div class="col-md-12">
-    <p>
-      ※1 コンテナの作成時に利用されたイメージは、そのコンテナを削除するまで削除できない場合があります。</br>
-      ※2 イメージの作成時に利用されたイメージは、そのイメージを削除するまで削除できない場合があります。<br>
-      ※3 レポジトリ名かタグ名に「<%= "<none>" %>」がついてるものは以下リンクから一括削除してください。（※1、※2 を満たしている必要があります）<br>
-      　　<%= link_to "不要イメージの削除", images_delete_2_path, class: 'btn btn-default btn-customer-1', data: { confirm: "本当に削除しますか？" } %></td>
-    </p>
-  </div>
+      <div class="col-md-12">
+        <p>
+          ※1 コンテナの作成時に利用されたイメージは、そのコンテナを削除するまで削除できない場合があります。</br>
+          ※2 イメージの作成時に利用されたイメージは、そのイメージを削除するまで削除できない場合があります。<br>
+          ※3 レポジトリ名かタグ名に「<%= "<none>" %>」がついてるものは以下リンクから一括削除してください。（※1、※2 を満たしている必要があります）<br>
+          　　<%= link_to "不要イメージの削除", images_delete_2_path, class: 'btn btn-default btn-customer-1', data: { confirm: "本当に削除しますか？" } %></td>
+        </p>
+      </div>
 
-  <div class="col-md-12">
-    <br><br>
-    <%= link_to "更新", images_index_path, class: 'btn btn-primary' %>
+      <div class="col-md-12">
+        <br><br>
+        <%= link_to "更新", images_index_path, class: 'btn btn-primary' %>
+      </div>
+    </div>
   </div>
 </div>
+    

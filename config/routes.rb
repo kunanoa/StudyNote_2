@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   post 'images/change_repository_tag_do'
   get 'images/delete'
   get 'images/delete_2'
+  get 'managements/index'
   get 'managements/add_rull_sg'
   post 'managements/add_rull_sg_do'
 

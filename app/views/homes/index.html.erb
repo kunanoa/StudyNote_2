@@ -1,52 +1,57 @@
-<h1>ホーム</h1>
-<div class="row">
-  <div class="col-md-6">
-    <%= link_to containers_index_path do %>
-      <%= image_tag "cat-4626681_1920.jpg", class: "home_image" %>
-      <div class="text-center home_image_text">
-        コンテナ画面へ移動
+<div class="top-hero-container">
+  <div class="container">
+    <h1>ホーム</h1>
+    <div class="row">
+      <div class="col-md-6">
+        <%= link_to containers_index_path do %>
+          <%= image_tag "cat-4626681_1920.jpg", class: "home_image" %>
+          <div class="text-center home_image_text">
+            コンテナ画面へ移動
+          </div>
+        <% end %>
       </div>
-    <% end %>
-  </div>
-  <div class="col-md-6">
-    <%= link_to images_index_path do %>
-      <%= image_tag "cat-4626682_1920.jpg", class: "home_image" %>
-      <div class="text-center home_image_text">
-        イメージ画面へ移動
+      <div class="col-md-6">
+        <%= link_to images_index_path do %>
+          <%= image_tag "cat-4626682_1920.jpg", class: "home_image" %>
+          <div class="text-center home_image_text">
+            イメージ画面へ移動
+          </div>
+        <% end %>
       </div>
-    <% end %>
-  </div>
 
-  <div class="col-md-6">
-    <br>
-    <br>
-    <h3>◆進捗状況（7/17 ~ 7/31）</h3>
-    <p class="text_size_20">
-    ＜環境＞<br>
-    ・ELB、サーバ削除（旧環境削除）<br>
-    ・Rails6+NginX+Puma対応（新環境構築）<br>
-    <br>
-    ＜アプリ＞<br>
-    ・devise利用停止、ログイン機能実装<br>
-    ・ナビゲーションバー実装<br>
-    ・フッダ実装<br>
-    ・コンテナからイメージの作成機能実装<br>
-    ・コンテナ名の変更機能実装<br>
-    ・イメージ画面の追加<br>
-    ・イメージからコンテナの作成機能実装<br>
-    ・イメージのタグ変更/削除機能実装<br>
-    </p>
-  </div>
+      <div class="col-md-6">
+        <br>
+        <br>
+        <h3>◆進捗状況（7/17 ~ 7/31）</h3>
+        <p class="text_size_20">
+        ＜環境＞<br>
+        ・ELB、サーバ削除（旧環境削除）<br>
+        ・Rails6+NginX+Puma対応（新環境構築）<br>
+        <br>
+        ＜アプリ＞<br>
+        ・devise利用停止、ログイン機能実装<br>
+        ・ナビゲーションバー実装<br>
+        ・フッダ実装<br>
+        ・コンテナからイメージの作成機能実装<br>
+        ・コンテナ名の変更機能実装<br>
+        ・イメージ画面の追加<br>
+        ・イメージからコンテナの作成機能実装<br>
+        ・イメージのタグ変更/削除機能実装<br>
+        </p>
+      </div>
 
-  <div class="col-md-6">
-    <br>
-    <br>
-    <h3>◆要対応</h3>
-    <p class="text_size_20">
-    ・MyPage画面の追加<br>
-    ・イベント機能実装<br>
-    ・form_for、form_tagについての調査<br>
-    ・その他<br>
-    </p>
+      <div class="col-md-6">
+        <br>
+        <br>
+        <h3>◆要対応</h3>
+        <p class="text_size_20">
+        ・MyPage画面の追加<br>
+        ・イベント機能実装<br>
+        ・form_for、form_tagについての調査<br>
+        ・その他<br>
+        </p>
+      </div>
+    </div>
   </div>
 </div>
+    

@@ -96,10 +96,10 @@ html,body{
 }
 
 .alert {
-    margin-bottom: 0px;
-    position: fixed;
-    width: 100%;
-    z-index: 10000;
+  margin-bottom: 0px;
+  position: fixed;
+  width: 100%;
+  z-index: 10000;
 }
   
 .home_image {
@@ -121,5 +121,9 @@ html,body{
 }
 
 .form-control {
-    height: 45px;
+  height: 45px;
+}
+
+.managements-backgroud {
+  background-color: #2f3a44;
 }

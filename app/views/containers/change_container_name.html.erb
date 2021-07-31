@@ -1,26 +1,31 @@
-<div class="row">
-  <div class="col-md-offset-4 col-md-4">
-    <h2 class="text-center">コンテナ名を変更</h2>
-    <%= form_for @container, url: containers_change_container_name_do_path do |f| %>
-      <div class="form-group">
-        <%= f.hidden_field :id, class: 'form-control' %>
-      </div>
-      <div class="form-group">
-        <%= f.hidden_field :name, class: 'form-control' %>
-      </div>
-      <div class="form-group">
-        <%= f.label :変更後のコンピュータ名 %>
-        <%= f.text_field :new_name, class: 'form-control ' %>
+
+<div class="top-hero-container">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-offset-4 col-md-4">
+        <h2 class="text-center">コンテナ名を変更</h2>
+        <%= form_for @container, url: containers_change_container_name_do_path do |f| %>
+          <div class="form-group">
+            <%= f.hidden_field :id, class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.hidden_field :name, class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :変更後のコンピュータ名 %>
+            <%= f.text_field :new_name, class: 'form-control ' %>
+          </div>
+
+          <%= f.submit "送信", class: 'btn-block btn-white col-md-6' %>
+        <% end %>
+        
+        <%= link_to 'キャンセル', containers_index_path %>
       </div>
 
-      <%= f.submit "送信", class: 'btn-block btn-white col-md-6' %>
-    <% end %>
-    
-    <%= link_to 'キャンセル', containers_index_path %>
-  </div>
-
-  <div class="col-md-offset-3 col-md-9">
-  <br>
-    ※1 コンテナ名には英数字と「-」、「_」、「.」を利用できます。）<br>
+      <div class="col-md-offset-3 col-md-9">
+      <br>
+        ※1 コンテナ名には英数字と「-」、「_」、「.」を利用できます。）<br>
+      </div>
+    </div>
   </div>
 </div>
