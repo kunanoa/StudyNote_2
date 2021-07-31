@@ -1,0 +1,23 @@
+<% content_for :content do %>
+  <div class="top-hero-container">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-offset-1 col-md-8">
+          <%= yield %>
+        </div>
+        <div class="col-md-3 managements-backgroud visible-lg">
+            <b>Page List<br></b>
+            <%= link_to "ユーザ管理（準備中）", "#", class:"userList" %><br>
+            <%= link_to "個人設定（準備中）", "#", class:"userList" %><br>
+            <%= link_to "ssh接続設定管理", managements_add_rull_sg_path, class:"userList" %><br>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+<%= render template: "layouts/application" %>
+
+
+
+
+

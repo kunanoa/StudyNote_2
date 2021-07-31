@@ -1,5 +1,4 @@
 class ManagementsController < ApplicationController
-
   before_action :require_login
 
   def add_rull_sg

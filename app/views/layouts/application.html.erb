@@ -55,7 +55,7 @@
                     <%= link_to "イメージ", images_index_path, class:"userList" %>
                   </li>
                   <li class="text-center">
-                    <%= link_to "管理", managements_add_rull_sg_path, class:"userList" %>
+                    <%= link_to "管理", managements_index_path, class:"userList" %>
                   </li>
                   <li class="text-center">
                     <%= link_to "ログアウト", logout_path, method: :delete, class:"userList" %>
@@ -67,8 +67,10 @@
         </nav>
       </div>
 
-      <%= yield %>
-
+      <div id="content">
+        <%= content_for?(:content) ? yield(:content) : yield %>
+      </div>
+      
       <div class="footer">
         <div class="container">
           <div class="footer-left">
