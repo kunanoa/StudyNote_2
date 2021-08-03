@@ -41,8 +41,6 @@ class Container < ApplicationRecord
     else
       @status = "停止"
     end
-
-    return @id, @name, @status, @port, @repository, @tag
   end
 
   def create_image(id, repository, tag)

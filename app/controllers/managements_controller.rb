@@ -1,6 +1,13 @@
 class ManagementsController < ApplicationController
   before_action :require_login
 
+  def index
+  end
+   
+  def user_management
+    @users = User.all
+  end
+
   def add_rull_sg
     @management = Management.new
   end

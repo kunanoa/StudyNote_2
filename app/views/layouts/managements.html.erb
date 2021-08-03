@@ -7,8 +7,8 @@
         </div>
         <div class="col-md-3 managements-backgroud visible-lg">
             <b>Page List<br></b>
-            <%= link_to "ユーザ管理（準備中）", "#", class:"userList" %><br>
-            <%= link_to "個人設定（準備中）", "#", class:"userList" %><br>
+            <%= link_to "ユーザ管理", managements_user_management_path, class:"userList" %><br>
+            <%= link_to "個人設定", edit_user_path(id: current_user.id), class:"userList" %><br>
             <%= link_to "ssh接続設定管理", managements_add_rull_sg_path, class:"userList" %><br>
         </div>
       </div>

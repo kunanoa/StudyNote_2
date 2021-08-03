@@ -14,12 +14,14 @@ Rails.application.routes.draw do
   get 'images/delete'
   get 'images/delete_2'
   get 'managements/index'
+  get 'managements/user_management'
   get 'managements/add_rull_sg'
   post 'managements/add_rull_sg_do'
 
   root 'homes#index'
 
   resources :users
+  delete '/user_delete',  to: 'users#destroy'
 
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'

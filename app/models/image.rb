@@ -36,7 +36,6 @@ class Image < ApplicationRecord
     @port_host = ""
     @port_container = ""
     @container_name = ""
-    return @id, @repository, @tag, @created, @image_size ,@port_host ,@port_container, @container_name
   end
 
   def create_container(repository, tag, port_host, port_container, container_name)
