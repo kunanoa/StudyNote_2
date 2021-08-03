@@ -35,15 +35,21 @@
             </button>
             <ul class="dropdown-menu">
               <li>
-                <%= link_to "ユーザ情報を変更", edit_user_path(id: user.id) %>    
+                <%= link_to "ユーザ情報（編集）", edit_user_path(id: user.id) %>    
               </li>
-              <% if user.admin == true %>
-                <li>
-                  <%= link_to "一般ユーザに権限変更", users_permission_change_path(id: user.id), data: { confirm: "権限を変更しますか？" } %>
-                </li>
+              <% if current_user.id != user.id %>
+                <% if user.admin == true %>
+                  <li>
+                    <%= link_to "権限変更（一般ユーザに変更）", users_permission_change_path(id: user.id), data: { confirm: "権限を変更しますか？" } %>
+                  </li>
+                <% else %>
+                  <li>
+                    <%= link_to "権限変更（管理者に変更）", users_permission_change_path(id: user.id), data: { confirm: "権限を変更しますか？" } %>
+                  </li>
+                <% end %>
               <% else %>
-                <li>
-                  <%= link_to "管理者に権限変更", users_permission_change_path(id: user.id), data: { confirm: "権限を変更しますか？" } %>
+                <li class="disabled">
+                  <%= link_to "権限変更（ログイン中は不可）", users_permission_change_path(id: user.id), data: { confirm: "権限を変更しますか？" } %>
                 </li>
               <% end %>
               <li role="separator" class="divider"></li>
@@ -53,7 +59,7 @@
                 </li>
               <% else %>
                 <li class="disabled">
-                  <%= link_to "削除（ログイン中）", "#" %>
+                  <%= link_to "削除（ログイン中は不可）", "#" %>
                 </li>
               <% end %>
             </ul>

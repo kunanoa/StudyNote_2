@@ -43,10 +43,10 @@ class UsersController < ApplicationController
   # 対応中
   def permission_change
     @user = User.find(params[:id])
-    if (@user.id != current_user.id)# && @user.save(admin: true)
-        redirect_to root_path, success: "#{@user.admin} ユーザ権限を変更しました。"
+    if (@user.id != current_user.id) && @user.toggle!(:admin)
+      redirect_back(fallback_location: root_path, success: "ユーザ権限を変更しました。")
     else
-      redirect_back(fallback_location: root_path, danger: "#{@user.admin}ユーザ権限の変更に失敗しました")
+      redirect_back(fallback_location: root_path, danger: "ユーザ権限の変更に失敗しました")
     end
   end
 
