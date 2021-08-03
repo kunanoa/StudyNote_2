@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   root 'homes#index'
 
   resources :users
+  get '/users_permission_change',  to: 'users#permission_change'
   delete '/user_delete',  to: 'users#destroy'
 
   get    '/login',   to: 'sessions#new'

@@ -22,6 +22,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def admin_user?
+    unless current_user.admin?
+      redirect_to root_path, danger: 'この操作には管理者権限が必要です。'
+    end
+  end
+
   helper_method :current_user
   helper_method :logged_in?
 end

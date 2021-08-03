@@ -1,5 +1,6 @@
 class ManagementsController < ApplicationController
   before_action :require_login
+  before_action :admin_user?, only: :user_management
 
   def index
   end

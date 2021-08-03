@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
   before_action :require_login
+  before_action :admin_user?, only: [:destroy, :new, :create, :permission_change]
 
   def new
     @user = User.new
@@ -32,11 +33,20 @@ class UsersController < ApplicationController
     
   def destroy
     @user = User.find(params[:id])
-    if @user.id != current_user.id
-      @user.destroy
+    if (@user.id != current_user.id) && @user.destroy
       redirect_to root_path, success: 'ユーザを削除しました。'
     else
       redirect_back(fallback_location: root_path, danger: 'ユーザの削除に失敗しました')
+    end
+  end
+
+  # 対応中
+  def permission_change
+    @user = User.find(params[:id])
+    if (@user.id != current_user.id)# && @user.save(admin: true)
+        redirect_to root_path, success: "#{@user.admin} ユーザ権限を変更しました。"
+    else
+      redirect_back(fallback_location: root_path, danger: "#{@user.admin}ユーザ権限の変更に失敗しました")
     end
   end
 

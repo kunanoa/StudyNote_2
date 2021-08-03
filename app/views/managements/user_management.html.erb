@@ -23,13 +23,42 @@
         <td><%= user.id %></td>
         <td><%= user.name %></td>
         <td><%= user.email %></td>
-        <td>設定なし</td>
-        <td><%= link_to "編集", edit_user_path(id: user.id) %></td>
-        <% if current_user.id != user.id %>
-          <td><%= link_to "削除", user_delete_path(id: user.id), method: :delete, data: { confirm: "本当に削除しますか？" } %></td>
+        <% if user.admin == true %>
+          <td>管理者</td>
         <% else %>
-          <td>-</td>
+          <td>一般ユーザ</td>
         <% end %>
+        <td>              
+          <li class="dropdown list-unstyled">
+            <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              アクション▼
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <%= link_to "ユーザ情報を変更", edit_user_path(id: user.id) %>    
+              </li>
+              <% if user.admin == true %>
+                <li>
+                  <%= link_to "一般ユーザに権限変更", users_permission_change_path(id: user.id), data: { confirm: "権限を変更しますか？" } %>
+                </li>
+              <% else %>
+                <li>
+                  <%= link_to "管理者に権限変更", users_permission_change_path(id: user.id), data: { confirm: "権限を変更しますか？" } %>
+                </li>
+              <% end %>
+              <li role="separator" class="divider"></li>
+              <% if current_user.id != user.id %>
+                <li>
+                  <%= link_to "削除", user_delete_path(id: user.id), method: :delete, data: { confirm: "本当に削除しますか？" } %>
+                </li>
+              <% else %>
+                <li class="disabled">
+                  <%= link_to "削除（ログイン中）", "#" %>
+                </li>
+              <% end %>
+            </ul>
+          </li>
+        </td>
       </tr>
     <% end %>
   </tbody>
