@@ -10,7 +10,7 @@
             <% if current_user.admin == true%>
               <%= link_to "ユーザ管理", managements_user_management_path, class:"userList" %><br>
             <% end %>
-            <%= link_to "個人設定", edit_user_path(id: current_user.id), class:"userList" %><br>
+            <%= link_to "個人設定", managements_myaccount_path, class:"userList" %><br>
             <%= link_to "ssh接続設定管理", managements_add_rull_sg_path, class:"userList" %><br>
         </div>
       </div>

@@ -3,7 +3,7 @@ class Container < ApplicationRecord
   attr_accessor :id, :name, :new_name, :status, :port, :repository, :tag
 
   # バリデーション処理
-  validates :id, length: { is: 12 }
+  validates :id, length: { is: 12 }, format: {with: /\A([a-z0-9]+)\z/}
   validates :status, format: { with: /\A(稼働中|停止)\z/ }, allow_blank: true
   validates :name, length: { maximum: 30 }, format: {with: /\A([a-zA-Z0-9_.-]+)\z/}, allow_blank: true
   validates :new_name, length: { maximum: 30 }, format: {with: /\A([a-zA-Z0-9_.-]+)\z/}, allow_blank: true

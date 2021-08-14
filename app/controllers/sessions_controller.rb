@@ -7,15 +7,18 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       log_in user
       redirect_to root_path, success: 'ログインに成功しました'
+      Event.write_event_file("ユーザがログインしました")
     else
       flash.now[:danger] = 'ログインに失敗しました'
       render :new
+      Event.write_event_file("ログインに失敗しました")
     end
   end
 
   def destroy
     log_out
     redirect_to login_path, info: 'ログアウトしました'
+    Event.write_event_file("ユーザがログアウトしました")
   end
 
   private

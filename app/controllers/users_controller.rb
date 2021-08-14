@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   before_action :require_login
-  before_action :admin_user?, only: [:destroy, :new, :create, :permission_change]
+  before_action :admin_user?, only: [:destroy, :new, :edit, :create, :permission_change]
 
   def new
     @user = User.new
@@ -16,9 +16,11 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       redirect_to root_path, success: '登録が完了しました'
+      Event.write_event_file("ユーザ（#{@user.email}）を登録しました。")
     else
       flash.now[:danger] = "登録に失敗しました"
       render :new
+      Event.write_event_file("ユーザ情報（#{@user.email}）の登録に失敗しました。")
     end
   end
 
@@ -26,8 +28,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
       redirect_to root_path, success: 'ユーザ情報を更新しました。'
+      Event.write_event_file("ユーザ情報（#{@user.email}）の更新に成功しました。")
     else
       redirect_back(fallback_location: root_path, danger: "ユーザ情報の更新に失敗しました")
+      Event.write_event_file("ユーザ情報（#{@user.email}）の更新に失敗しました。")
     end
   end
     
@@ -35,18 +39,21 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if (@user.id != current_user.id) && @user.destroy
       redirect_to root_path, success: 'ユーザを削除しました。'
+      Event.write_event_file("ユーザ（#{@user.email}）を削除しました。")
     else
       redirect_back(fallback_location: root_path, danger: 'ユーザの削除に失敗しました')
+      Event.write_event_file("ユーザ（#{@user.email}）の削除に失敗しました。")
     end
   end
 
-  # 対応中
   def permission_change
     @user = User.find(params[:id])
     if (@user.id != current_user.id) && @user.toggle!(:admin)
       redirect_back(fallback_location: root_path, success: "ユーザ権限を変更しました。")
+      Event.write_event_file("ユーザ（#{@user.email}）の権限を変更しました。")
     else
       redirect_back(fallback_location: root_path, danger: "ユーザ権限の変更に失敗しました")
+      Event.write_event_file("ユーザ（#{@user.email}）の権限の変更に失敗しました")
     end
   end
 

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root 'homes#index'
+
   get 'containers/index'
   get 'containers/new'
   post 'containers/create'
@@ -6,6 +8,7 @@ Rails.application.routes.draw do
   get 'containers/delete'
   get 'containers/change_container_name'
   post 'containers/change_container_name_do'
+
   get 'images/index'
   get 'images/new'
   post 'images/create'
@@ -13,12 +16,15 @@ Rails.application.routes.draw do
   post 'images/change_repository_tag_do'
   get 'images/delete'
   get 'images/delete_2'
+
   get 'managements/index'
+  get 'managements/myaccount'
+  patch 'managements/myaccount_update'
   get 'managements/user_management'
   get 'managements/add_rull_sg'
   post 'managements/add_rull_sg_do'
 
-  root 'homes#index'
+  get 'events/index'
 
   resources :users
   get '/users_permission_change',  to: 'users#permission_change'

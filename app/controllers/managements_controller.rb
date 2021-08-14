@@ -9,6 +9,17 @@ class ManagementsController < ApplicationController
     @users = User.all
   end
 
+  def myaccount_update
+    @user = User.find(current_user.id)
+    if @user.update_attributes(user_params)
+      redirect_to root_path, success: 'ユーザ情報を更新しました。'
+      Event.write_event_file("ユーザ情報（#{current_user.email}）の更新に成功しました。")
+    else
+      redirect_back(fallback_location: root_path, danger: "ユーザ情報の更新に失敗しました")
+      Event.write_event_file("ユーザ情報（#{current_user.email}）の更新に失敗しました。")
+    end
+  end
+
   def add_rull_sg
     @management = Management.new
   end
@@ -26,5 +37,9 @@ class ManagementsController < ApplicationController
   private
   def ip_params
     params.require(:management).permit(:ip)
+  end
+
+  def user_params
+    params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
 end
