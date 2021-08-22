@@ -21,10 +21,10 @@ class ContainersController < ApplicationController
     @container = Container.new(create_image_params)
     if @container.valid? && @container.create_image(@container.id, @container.repository, @container.tag)
       redirect_to images_index_path, success: "イメージを作成しました。"
-      Event.write_event_file("イメージ「#{@container.repository}:#{@container.tag}」の作成に成功しました。（作成元コンテナID：#{@container.id}）")
+      Event.logger_info(current_user.name, "イメージ「#{@container.repository}:#{@container.tag}」の作成に成功しました。（作成元コンテナID：#{@container.id}）")
     else
       redirect_back(fallback_location: root_path, danger: "処理に失敗しました。")
-      Event.write_event_file("イメージの作成に失敗しました。")
+      Event.logger_info(current_user.name, "イメージの作成に失敗しました。")
     end
   end
 
@@ -33,10 +33,10 @@ class ContainersController < ApplicationController
     @container = Container.new(id_params.merge(status_params))
     if @container.valid? && @container.start_stop_container(@container.id, @container.status)
         flash.now[:success] = "処理に成功しました。現在のコンテナのステータスは「#{@container.status}」です。"
-        Event.write_event_file("コンテナ（#{@container.id}）のステータスが変更されました。現在のコンテナのステータスは「#{@container.status}」です。")
+        Event.logger_info(current_user.name, "コンテナ（#{@container.id}）のステータスが変更されました。現在のコンテナのステータスは「#{@container.status}」です。")
     else
       redirect_back(fallback_location: root_path, danger: "処理に失敗しました。現在のコンテナのステータスは「#{@container.status}」です。")
-      Event.write_event_file("コンテナ（#{@container.id}）の稼働/停止処理に失敗しました。")
+      Event.logger_info(current_user.name, "コンテナ（#{@container.id}）の稼働/停止処理に失敗しました。")
     end
   end
 
@@ -54,10 +54,10 @@ class ContainersController < ApplicationController
     @container = Container.new(change_container_name_do_params)
     if @container.valid? && @container.change_name(@container.id, @container.name, @container.new_name)
       redirect_to containers_index_path, success: "コンテナ名の変更に成功しました。"
-      Event.write_event_file("コンテナ（#{@container.id}）のコンテナ名を「#{@container.name}」から「#{@container.new_name}」に変更しました。")
+      Event.logger_info(current_user.name, "コンテナ（#{@container.id}）のコンテナ名を「#{@container.name}」から「#{@container.new_name}」に変更しました。")
     else
       redirect_back(fallback_location: root_path, danger: "コンテナ名の変更に失敗しました。")
-      Event.write_event_file("コンテナ（#{@container.id}）のコンテナ名を変更できませんでした。")
+      Event.logger_info(current_user.name, "コンテナ（#{@container.id}）のコンテナ名を変更できませんでした。")
     end
   end
 
@@ -67,10 +67,10 @@ class ContainersController < ApplicationController
     @container = Container.new(id_params)
     if @container.valid? && @container.delete_container(@container.id)
       flash.now[:success] = "コンテナの削除に成功しました。"
-      Event.write_event_file("コンテナ（#{@container.id}）を削除しました。")
+      Event.logger_info(current_user.name, "コンテナ（#{@container.id}）を削除しました。")
     else
       redirect_back(fallback_location: root_path, danger: "コンテナの削除に失敗しました。")
-      Event.write_event_file("コンテナ（#{@container.id}）の削除に失敗しました。")
+      Event.logger_info(current_user.name, "コンテナ（#{@container.id}）の削除に失敗しました。")
     end
   end
 

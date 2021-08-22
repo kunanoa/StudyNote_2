@@ -21,10 +21,10 @@ class ImagesController < ApplicationController
     @image = Image.new(create_container_params)
     if @image.valid? && @image.create_container(@image.repository, @image.tag, @image.port_host, @image.port_container, @image.container_name)
       redirect_to containers_index_path, success: "イメージを作成しました。"
-      Event.write_event_file("コンテナ「#{@image.container_name}」の作成に成功しました。（作成元イメージ：「#{@image.repository}：#{@image.tag}」）")
+      Event.logger_info(current_user.name, "コンテナ「#{@image.container_name}」の作成に成功しました。（作成元イメージ：「#{@image.repository}：#{@image.tag}」）")
     else
       redirect_back(fallback_location: root_path, danger: "処理に失敗しました。")
-      Event.write_event_file("コンテナの作成に失敗しました。")
+      Event.logger_info(current_user.name, "コンテナの作成に失敗しました。")
     end
   end
 
@@ -42,10 +42,10 @@ class ImagesController < ApplicationController
       @image = Image.new(change_repository_tag_params)
       if @image.valid? && @image.change_repository_tag_name(@image.id, @image.repository, @image.tag)
         redirect_to images_index_path, success: "イメージの複製に作成しました。"
-        Event.write_event_file("レポジトリ/タグ名を変更（または複製）しました。（イメージ「#{@image.repository}：#{@image.tag}」）")
+        Event.logger_info(current_user.name, "レポジトリ/タグ名を変更（または複製）しました。（イメージ「#{@image.repository}：#{@image.tag}」）")
       else
         redirect_back(fallback_location: root_path, danger: "イメージの複製に失敗しました。")
-        Event.write_event_file("レポジトリ/タグ名の変更に失敗しました。（イメージ「#{@image.repository}：#{@image.tag}」）")
+        Event.logger_info(current_user.name, "レポジトリ/タグ名の変更に失敗しました。（イメージ「#{@image.repository}：#{@image.tag}」）")
       end
     end
 
@@ -54,10 +54,10 @@ class ImagesController < ApplicationController
     @image = Image.new(image_params)
     if @image.valid? && @image.delete_image(@image.id, @image.repository, @image.tag, @image.image_size, @image.created)
       flash.now[:success] = "イメージの削除に成功しました。"
-      Event.write_event_file("イメージ（#{@image.id}）の削除に成功しました。")
+      Event.logger_info(current_user.name, "イメージ（#{@image.id}）の削除に成功しました。")
     else
       redirect_back(fallback_location: root_path, danger: "イメージの削除に失敗しました。")
-      Event.write_event_file("イメージ（#{@image.id}）の削除に失敗しました。")
+      Event.logger_info(current_user.name, "イメージ（#{@image.id}）の削除に失敗しました。")
     end
   end
 
@@ -66,7 +66,7 @@ class ImagesController < ApplicationController
     @image = Image.new()
     @image.delete_unused_image
     redirect_back(fallback_location: root_path, success: "削除可能なイメージを削除しました。")
-    Event.write_event_file("削除可能な不要イメージを削除しました。")
+    Event.logger_info(current_user.name, "削除可能な不要イメージを削除しました。")
   end
 
   private

@@ -5,4 +5,5 @@ class EventsController < ApplicationController
     event = Event.new
     @events = event.read_event_file
   end
+
 end

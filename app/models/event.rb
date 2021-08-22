@@ -2,31 +2,22 @@ class Event < ApplicationRecord
 
   def read_event_file
     @events = []
-    File.open('app/models/event_log.txt') do |f|
+    File.open("#{Rails.root}/log/user.log") do |f|
       f.each_line do |subject|
-        @events << subject.split(",")
-      end
-      # イベントの数が100を超える場合は、古い順からイベントを削除。
-      count = f.lineno
-      if count > 1000
-        @events = @events[(count - 1000)..-1]
-        delete_log(@events)
+        unless /^#/ =~ subject
+          subject = subject.split(",")
+          subject[0] = subject[1].split(" ")[2]
+          subject[1] = subject[1].split(" ")[0][1..19]
+          subject[1] = subject[1].sub!(/T/, ' ')
+          @events << subject
+        end
       end
     end
     @events
   end
 
-  def self.write_event_file(message)
-    File.open('app/models/event_log.txt', mode = "a") do |f|
-      f.write("#{message}, #{Date.today} #{DateTime.now.hour}:#{DateTime.now.min}:#{DateTime.now.sec}\n")
-    end
-  end
-
-  def delete_log(events)
-    File.open('app/models/event_log.txt', mode = "w") do |f|
-      events.each do |event|
-        f.write("#{event}")
-      end
-    end
+  def self.logger_info(current_user_name, message)
+    logger = Logger.new("#{Rails.root}/log/user.log")
+    logger.info(", #{current_user_name}, #{message}")
   end
 end

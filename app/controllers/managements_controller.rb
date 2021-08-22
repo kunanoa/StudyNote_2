@@ -13,10 +13,10 @@ class ManagementsController < ApplicationController
     @user = User.find(current_user.id)
     if @user.update_attributes(user_params)
       redirect_to root_path, success: 'ユーザ情報を更新しました。'
-      Event.write_event_file("ユーザ情報（#{current_user.email}）の更新に成功しました。")
+      Event.logger_info(current_user.name, "ユーザ情報（#{current_user.email}）の更新に成功しました。")
     else
       redirect_back(fallback_location: root_path, danger: "ユーザ情報の更新に失敗しました")
-      Event.write_event_file("ユーザ情報（#{current_user.email}）の更新に失敗しました。")
+      Event.logger_info(current_user.name, "ユーザ情報（#{current_user.email}）の更新に失敗しました。")
     end
   end
 

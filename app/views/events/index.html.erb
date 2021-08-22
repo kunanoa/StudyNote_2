@@ -7,8 +7,9 @@
           <thead>
             <tr>
               <th>時刻</th>
-              <th>イベント内容</th>
+              <th>レベル</th>
               <th>実行ユーザ</th>
+              <th>イベント内容</th>
             </tr>
           </thead>
           <tbody>
@@ -16,7 +17,8 @@
               <tr>
                 <td><%= event[1] %></td>
                 <td><%= event[0] %></td>
-                <td><%= current_user.name %></td>
+                <td><%= event[2] %></td>
+                <td><%= event[3] %></td>
               </tr>
             <% end %>
           </tbody>
