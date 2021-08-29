@@ -2,7 +2,7 @@ class Event < ApplicationRecord
 
   def read_event_file
     @events = []
-    File.open("#{Rails.root}/log/user.log") do |f|
+    File.open("#{Rails.root}/log/#{Rails.env}/user.log") do |f|
       f.each_line do |subject|
         unless /^#/ =~ subject
           subject = subject.split(",")
@@ -17,9 +17,13 @@ class Event < ApplicationRecord
   end
 
   def self.logger_info(current_user_name, message)
-    logger = Logger.new("#{Rails.root}/log/user.log")
+    logger = Logger.new("#{Rails.root}/log/#{Rails.env}/user.log")
     logger.info(", #{current_user_name}, #{message}")
   end
+
+  # def self.logger_info(current_user_name, message)
+  #   Rails.application.custom_logger.info(", #{current_user_name}, #{message}")
+  # end
 
   def self.search(search)
     @events = []

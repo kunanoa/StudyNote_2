@@ -4,9 +4,9 @@
     <div class="row">
     <div class="col-md-9"></div>
       <div class="col-md-3">
-      <%= form_tag(events_index_path,:method => 'get') do %>
+      <%= form_tag(events_index_path, :method => 'get') do %>
         <%= text_field_tag :search %>
-        <%= submit_tag '  検索  ', :name => nil %>
+        <%= submit_tag('  検索  ') %>
       <% end %>
       </div>
       <br><br><br><br>
