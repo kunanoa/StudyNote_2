@@ -21,10 +21,6 @@ class Event < ApplicationRecord
     logger.info(", #{current_user_name}, #{message}")
   end
 
-  # def self.logger_info(current_user_name, message)
-  #   Rails.application.custom_logger.info(", #{current_user_name}, #{message}")
-  # end
-
   def self.search(search)
     @events = []
     event = Event.new
