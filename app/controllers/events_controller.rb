@@ -2,7 +2,16 @@ class EventsController < ApplicationController
   before_action :require_login
 
   def index
-    @events = Event.search(params[:search] ||= "")
+    @start_time_custom = nil
+    @end_time_custom = nil
+
+    unless params[:start_time].nil? && params[:end_time].nil?
+      date = Event.date(params[:start_time], params[:end_time])
+      @start_time_custom = date[0]
+      @end_time_custom = date[1]
+    end
+
+    @events = Event.search(params[:search] ||= "", @start_time_custom, @end_time_custom)
 
     respond_to do |format|
       format.html

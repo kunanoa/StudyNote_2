@@ -2,13 +2,19 @@
   <div class="container">
     <h1>イベント</h1>
     <div class="row">
-    <div class="col-md-9"></div>    
 
-      <div class="col-md-3">
-      <%= form_tag(events_index_path, :method => 'get') do %>
-        <%= text_field_tag :search %>
-        <%= submit_tag('  検索  ') %>
-      <% end %>
+      <div class="col-md-12 text-right">
+        <%= form_tag(events_index_path, :method => 'get') do %>
+          キーワード <%= text_field_tag :search, params[:search] %><br>
+
+          開始日 <%= datetime_select :start_time, {}, default: (params[:start_time].nil?) ?
+            (DateTime.new(2020, 12, 31, 15, 0).in_time_zone("Tokyo")) : @start_time_custom %><br>
+
+          終了日 <%= datetime_select :end_time, {}, default: (params[:end_time].nil?) ?
+            DateTime.now.in_time_zone("Tokyo") : @end_time_custom %><br>
+
+          <%= submit_tag('  検索  ') %>
+        <% end %>
       </div>
       <br><br><br><br>
 

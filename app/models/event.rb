@@ -21,13 +21,31 @@ class Event < ApplicationRecord
     logger.info(", #{current_user_name}, #{message}")
   end
 
-  def self.search(search)
+  def self.date(start_time, end_time)
+    date =[]
+    start_time = Time.zone.local(start_time["{}(1i)"].to_i, start_time["{}(2i)"].to_i,
+                    start_time["{}(3i)"].to_i, start_time["{}(4i)"].to_i, start_time["{}(5i)"].to_i)
+    end_time = Time.zone.local(end_time["{}(1i)"].to_i, end_time["{}(2i)"].to_i,
+                    end_time["{}(3i)"].to_i, end_time["{}(4i)"].to_i, end_time["{}(5i)"].to_i)
+    date = start_time, end_time
+  end
+
+  def self.search(search, start_time, end_time)
     @events = []
     event = Event.new
     events = event.read_event_file
-    events.each do |event|
-      if event.join.include?(search) then
-        @events << event
+
+    # start_time と end_time がどちらかでも空である場合、search してないことを意味するので、events の値をそのまま渡す。
+    if start_time.nil? || end_time.nil?
+      @events = events
+    # start_time と end_time がどちらも存在する場合、指定期間内で検索を実施する。
+    elsif !start_time.nil? && !end_time.nil?
+      events.each do |event|
+        if (DateTime.parse("#{event[1]}") >= start_time) && (DateTime.parse("#{event[1]}") <= end_time)
+          if event.join.include?(search) then
+            @events << event
+          end
+        end
       end
     end
     @events
