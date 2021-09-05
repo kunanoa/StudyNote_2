@@ -8,15 +8,17 @@ class SessionsController < ApplicationController
       log_in user
       redirect_to root_path, success: 'ログインに成功しました'
       Event.logger_info(current_user.name, "ユーザがログインしました")
+      DefaultMailer.login(current_user).deliver_now
     else
       flash.now[:danger] = 'ログインに失敗しました'
       render :new
-      Event.logger_info(current_user.name, "ログインに失敗しました")
+      Event.logger_info("-", "ログインに失敗しました（ email： #{params[:session][:email]} ）")
     end
   end
 
   def destroy
     Event.logger_info(current_user.name, "ユーザがログアウトしました")
+    DefaultMailer.logout(current_user).deliver_now
     log_out
     redirect_to login_path, info: 'ログアウトしました'
   end

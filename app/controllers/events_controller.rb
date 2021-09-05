@@ -20,5 +20,5 @@ class EventsController < ApplicationController
         Event.logger_info(current_user.name, "CSVファイル（イベント）をダウンロードしました")
       end
     end
-  end
+  end  
 end

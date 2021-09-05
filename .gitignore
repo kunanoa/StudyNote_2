@@ -37,3 +37,5 @@ yarn-debug.log*
 
 /config/database.yml
 /config/credentials.yml.enc
+/config/initializers/aws.rb
+/app/mailers/*
