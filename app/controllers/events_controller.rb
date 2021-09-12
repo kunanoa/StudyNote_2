@@ -21,4 +21,8 @@ class EventsController < ApplicationController
       end
     end
   end  
+
+  def sample_action
+    render body: nil
+  end
 end
